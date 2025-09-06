@@ -1,0 +1,134 @@
+{
+  "name": "microsoft-365-analyst-agent",
+  "displayName": "Microsoft 365 Analyst Agent",
+  "description": "Advanced AI-powered data analysis agent for Microsoft 365 integration",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Data Science",
+    "Machine Learning",
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:m365AnalystAgent.analyzeData",
+    "onCommand:m365AnalystAgent.importData",
+    "onCommand:m365AnalystAgent.createDashboard",
+    "onCommand:m365AnalystAgent.generateReport"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "m365AnalystAgent.analyzeData",
+        "title": "Analyze Data",
+        "category": "M365 Analyst"
+      },
+      {
+        "command": "m365AnalystAgent.importData",
+        "title": "Import Data from Microsoft 365",
+        "category": "M365 Analyst"
+      },
+      {
+        "command": "m365AnalystAgent.createDashboard",
+        "title": "Create Dashboard",
+        "category": "M365 Analyst"
+      },
+      {
+        "command": "m365AnalystAgent.generateReport",
+        "title": "Generate Report",
+        "category": "M365 Analyst"
+      },
+      {
+        "command": "m365AnalystAgent.openAnalystPanel",
+        "title": "Open Analyst Panel",
+        "category": "M365 Analyst"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "m365-analyst",
+          "title": "M365 Analyst Agent",
+          "icon": "$(graph)"
+        }
+      ]
+    },
+    "views": {
+      "m365-analyst": [
+        {
+          "id": "m365AnalystDataSources",
+          "name": "Data Sources",
+          "when": "m365AnalystAgent.activated"
+        },
+        {
+          "id": "m365AnalystInsights",
+          "name": "Insights",
+          "when": "m365AnalystAgent.activated"
+        },
+        {
+          "id": "m365AnalystReports",
+          "name": "Reports",
+          "when": "m365AnalystAgent.activated"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Microsoft 365 Analyst Agent",
+      "properties": {
+        "m365AnalystAgent.tenantId": {
+          "type": "string",
+          "default": "",
+          "description": "Microsoft 365 Tenant ID"
+        },
+        "m365AnalystAgent.clientId": {
+          "type": "string",
+          "default": "",
+          "description": "Application Client ID for Microsoft Graph API"
+        },
+        "m365AnalystAgent.enableAutoAnalysis": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable automatic analysis of imported data"
+        },
+        "m365AnalystAgent.defaultVisualizationType": {
+          "type": "string",
+          "enum": ["chart", "table", "dashboard"],
+          "default": "chart",
+          "description": "Default visualization type for data analysis"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@azure/msal-node": "^1.18.4",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "@microsoft/teams-js": "^2.15.0",
+    "chart.js": "^4.4.0",
+    "axios": "^1.6.0",
+    "csv-parser": "^3.0.0",
+    "xlsx": "^0.18.5",
+    "natural": "^6.5.0",
+    "ml-regression": "^2.0.0",
+    "ml-kmeans": "^6.0.0",
+    "simple-statistics": "^7.8.3"
+  }
+}
